@@ -6,7 +6,6 @@ from sklearn.metrics import accuracy_score
 
 test = pd.read_csv('./data/t_test.txt', sep='\t')
 train = pd.read_csv('./data/t_train.txt', sep='\t')
-politics = pd.read_csv('./data/Tweets_election_trial.txt', sep='\t')
 
 doc = {}
 doc[0] = train[train.iloc[:, 0] == 0].iloc[:, 1].to_numpy()
@@ -24,6 +23,7 @@ def extract_vocab(tweets):
     vocab = set()
 
     for tweet in tweets:
+        print(tweet)
         for word in tweet.split(' '):
             vocab.add(word.lower())
 
@@ -49,7 +49,6 @@ def predict(tweet, prior, likelihoods, vocab):
         0: 0,
         1: 0,
     }
-
     for classes in [0,1]:
         sums[classes] = prior[classes]
         # print(tweet)
@@ -69,8 +68,6 @@ training_data = list(train.iloc[:, 1])
 training_labels = list(train.iloc[:, 0])
 testing_data = list(test.iloc[:, 1])
 testing_labels = list(test.iloc[:, 0])
-politics_data = list(politics.iloc[:, 4])
-
 
 vocab = extract_vocab(training_data)
 
@@ -103,15 +100,6 @@ for classes in [0, 1]:
 
 # print(predict('I HATE THIS', logprior, loglikelihoods, vocab))
 testing_preds = [predict(tweet.lower(), logprior, loglikelihoods, vocab) for tweet in testing_data]
+
 print(accuracy_score(testing_labels, testing_preds))
-training_preds = [predict(tweet.lower(), logprior, loglikelihoods, vocab) for tweet in training_data]
-print(accuracy_score(training_labels, training_preds))
 
-# print(predict('I HATE THIS', logprior, loglikelihoods, vocab))
-testing_preds = [predict(tweet.lower(), logprior, loglikelihoods, vocab) for tweet in politics_data]
-
-politics_data = pd.DataFrame(politics_data)
-politics_data['preds'] = testing_preds
-
-politics_data.to_csv('./data/output.csv')
-print(politics_data)
