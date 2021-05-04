@@ -24,6 +24,9 @@ def skip_word(word):
     if word[0] == '@':
         return True
 
+    if 'http' in word:
+        return True
+
     return False
 
 

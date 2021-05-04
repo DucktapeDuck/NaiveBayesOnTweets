@@ -15,21 +15,33 @@ doc[0] = train[train.iloc[:, 0] == 0].iloc[:, 1].to_numpy()
 doc[1] = train[train.iloc[:, 0] == 1].iloc[:, 1].to_numpy()
 
 
-# print(train.to_numpy())
-# print(train.iloc[:,0])
-#
-# print(train[train.iloc[:,0] == '0'].iloc[:,1].to_numpy())
-# print(doc)
-# print(list(filter(lambda i: i==0, )))
+def skip_word(word):
+    if len(word) == 0:
+        return True
+
+    if word in ['a', 'an', 'the', 'and', 'for']:
+        return True
+
+    if word[0] == '@':
+        return True
+
+    if 'http' in word:
+        return True
+
+    return False
+
 
 def extract_vocab(tweets):
     vocab = set()
 
     for tweet in tweets:
         for word in tweet.split(' '):
+            if skip_word(word.lower()):
+                continue
             vocab.add(word.lower())
 
     return vocab
+
 
 
 def count_words(doc):
@@ -39,13 +51,12 @@ def count_words(doc):
         class_tweets = doc[classes]
         counts[classes] = defaultdict(int)
         for tweet in list(class_tweets):
-            # print(tweet)
             words = tweet.split(' ')
             for word in words:
+                if skip_word(word.lower()):
+                    continue
                 counts[classes][word.lower()] += 1
-
     return counts
-
 
 def predict(tweet, prior, likelihoods, vocab):
     sums = {
