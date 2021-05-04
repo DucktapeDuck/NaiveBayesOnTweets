@@ -1,0 +1,93 @@
+\documentclass{article}
+
+% If you're new to LaTeX, here's some short tutorials:
+% https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes
+% https://en.wikibooks.org/wiki/LaTeX/Basics
+
+% Formatting
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.5in]{geometry}
+\usepackage[titletoc,title]{appendix}
+% \usepackage{caption}
+\usepackage{subcaption}
+% Math
+% https://www.overleaf.com/learn/latex/Mathematical_expressions
+% https://en.wikibooks.org/wiki/LaTeX/Mathematics
+\usepackage{amsmath,amsfonts,amssymb,mathtools}
+
+% Images
+% https://www.overleaf.com/learn/latex/Inserting_Images
+% https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
+\usepackage{graphicx,float}
+\setlength{\parskip}{1.0em} 
+% Tables
+% https://www.overleaf.com/learn/latex/Tables
+% https://en.wikibooks.org/wiki/LaTeX/Tables
+
+% Algorithms
+% https://www.overleaf.com/learn/latex/algorithms
+% https://en.wikibooks.org/wiki/LaTeX/Algorithms
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{algorithmic}
+
+% Code syntax highlighting
+% https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted
+\usepackage{minted}
+\usemintedstyle{borland}
+
+% References
+% https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX
+% https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+\usepackage{biblatex}
+\addbibresource{references.bib}
+
+% Title content
+\title{CS 529 Project 3}
+\author{Connor Frost}
+\date{May 3, 2020}
+
+\begin{document}
+
+\maketitle
+
+% Introduction and Overview
+\section*{Introduction}
+
+The data used for training the classifier are tweets that are labeled either zero (for negative sentiment) and one (for positive sentiment). These seem to have been 
+
+\section{Bayesian Classification for Tweet Sentiments}
+
+There are three main parts for the classification:
+
+\begin{itemize}
+    \item Extraction and counting of vocab
+    \item Training the model
+    \item Prediction using the vocab and priors.
+\end{itemize}
+
+\noindent These are clearly elaborated on by the code.
+
+\subsection{Code}
+
+I take inspiration from https://medium.datadriveninvestor.com/implementing-naive-bayes-for-sentiment-analysis-in-python-951fa8dcd928 which was posted by Zachary Clarke on the Piazza page. However, it has to be implemented for our data and uses some of the feature selection mentioned in the assignment. Some words are filtered out such as articles of the English language and the people who are tagged in individual posts.
+
+\noindent The model is trained on the training data, and then subsequently predicts the election data. The code for this training and election data prediction is attached as: naive\_bayes\_classifier.py
+
+\subsection{Accuracy Benchmarks}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{prj1/docs/plots/gene_pruning.png}
+    \caption*{Accuracy of the trees' pruned alpha_values}
+\end{figure}    
+
+\subsection{Accuracy Analysis}
+
+\section{Time Analysis of Election Tweets}
+
+\section*{Submitted}
+
+\section{references}
+
+\end{document}
+
